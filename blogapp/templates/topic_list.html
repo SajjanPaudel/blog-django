@@ -1,0 +1,53 @@
+{% block content %}
+{% load humanize %}
+<style>
+    .navbar{
+        text-align: center;  
+        background-color: aliceblue;
+        padding: 10px;
+    }
+    .content-wrapper{
+        margin: 0 auto;
+        padding: 10px;
+        width: 75%;
+    }
+    #summary{
+        color: gray;
+
+    }
+    #title_link{
+        text-decoration: none;
+        color:black;
+    }
+
+    #title_link:hover{
+        color:hsl(258, 83%, 36%);
+        font-weight: bolder;
+        font-size: 1.02em;
+    }
+
+</style>
+
+<div class="navbar">
+    <i>&#8469;</i>
+    <h1 id="blog_company">
+        New IT Ventures POST
+    </h1>
+   
+</div>
+<div class="content-wrapper">
+    {% for blog in topics %}
+    <hr>
+    <div class="content-title">
+        <h1><a id="title_link" href="{% url 'detail' blog.id %}">{{blog.blog_title}}</a></h1>
+        <h3 id="summary">{{blog.blog_summary}}</h3>
+    </div>
+    <div class="posted">
+        <sub><i>{{blog.created_date|naturaltime}}</i>
+        <i> by {{blog.user}}</i>
+        </sub>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock content %}
