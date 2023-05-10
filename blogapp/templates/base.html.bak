@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+
+<style>
+    
+input{
+    width:100%;
+}
+textarea{
+    width:100%;
+}
+.navtop{
+    text-align: center;  
+    background-color: aliceblue;
+    padding: 10px;
+}
+#id_blog_content {
+    height: 150px;
+    columns: 1;
+}
+
+</style>
+</head>
+
+<html>
+    <head>
+        <title>My Project</title>
+    </head>
+
+
+    <body>
+    <div class="navtop">
+    <i>&#8469;</i>
+    <h1 id="blog_company"> <a href="{% url 'tasks' %}">
+        New IT Ventures POST
+    </a>
+       
+    </h1>
+    {% if request.user.is_authenticated %}
+
+    <h2>
+        <a href="{% url 'create' %}">create task</a> <br>
+        <a href="{% url 'profile' user.id %}">Go to profile</a>
+    </h2>
+    
+    </div>
+    <hr style="height:2px">
+    {% endif %}
+
+    {% block content %}{% endblock content %}
+
+    <script type="text/javascript">
+        let table = new DataTable('#example');
+    </script>
+
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
+    </body>
+</html> 

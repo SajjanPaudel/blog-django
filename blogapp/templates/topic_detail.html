@@ -1,22 +1,13 @@
-
+{% extends "base.html" %}
 {% block content%}
 {% load humanize %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
-    .company_logo{
-        text-align: center ;  
-        background-color: aliceblue;
-        padding: 10px;
-    }
-
     .container{
         margin: 0 auto;
         padding: 10px;
         width: 75%;
-    }
-    hr.top{
-        border-top: 1px dashed red;
     }
     #blog_summary{
         color:grey;
@@ -35,28 +26,28 @@
 
 </style>
 
-<div class="company_logo">
-    <h1 class="">
-       <a href="{% url 'tasks' %}">New IT Ventures POST</a> 
-    </h1>
-   
-</div>
-<hr class="top">
+
 <div class="container">
     <div class="content-title">
-        {% for blog in topics %}
+
         <h1 id="blog_title">{{blog.blog_title}}</h1>
         <hr>
         <h3 id="blog_summary">{{blog.blog_summary}}</h2>
         <hr>
         <h3 id="blog_content">{{blog.blog_content}}</h3>
 <hr>    
+{% if request.user.is_authenticated %}
+
+<div class="admin_tasks">
+    <button class="btn btn-danger" ><a href="{% url 'update' blog.id %}">Edit</a></button>
+</div>
+{% endif %}
+
         <div class="footer">
             <sub><i>{{blog.created_date|naturaltime}}</i>
-                <i> by {{blog.user}}</i>
+                <i> By {{blog.user}}</i>
                 </sub>
         </div>
-        {% endfor %}
     </div>
 </div>
 

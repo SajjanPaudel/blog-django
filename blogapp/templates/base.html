@@ -1,8 +1,75 @@
-<style>
-    .navbar{
-        display:flex;
-        justify-content: space-between;
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ticketing System {% endblock title %}</title>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+
+    <style>
+    
+        input{
+            width:100%;
+        }
+        textarea{
+            width:100%;
+        }
+        .navtop{
+            text-align: center;  
+            background-color: aliceblue;
+            padding: 10px;
+        }
+        #id_blog_content {
+            height: 150px;
+            columns: 1;
+        }
+        
+        </style>
+  </head>
+  <body>
+    <div class="navtop">
+        <i>&#8469;</i>
+        <h1 id="blog_company"> <a href="{% url 'tasks' %}">
+            New IT Ventures POST
+        </a>
+           
+        </h1>
+        {% if request.user.is_authenticated %}
+    
+        <h2>
+            <a href="{% url 'create' %}">create task</a> <br>
+            <a href="{% url 'profile' user.id %}">Go to profile</a>
+        </h2>
+        
+        </div>
+        <hr style="height:2px">
+        {% endif %}
+
+    
         
 
-    }
-</style>
+    
+
+    {% block content %}
+   
+  
+
+    {% endblock content %}
+    
+
+<!-- MDB -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+    <!--Datatable plugin JS library file -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"></script>
+    <script type="text/javascript">
+      let table = new DataTable('#myTable');
+    </script>
+</body>
+</html>
