@@ -2,12 +2,10 @@ from django.shortcuts import render,redirect,get_object_or_404,HttpResponseRedir
 from .models import Topic
 from functools import wraps
 from django import forms
-from django.contrib.auth.views import LoginView
-from .forms import RegisterForm,UpdateForm,passwordChangeForm
+from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordResetView,PasswordResetCompleteView,PasswordResetConfirmView,PasswordResetDoneView
+from .forms import RegisterForm,UpdateForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from .forms import AddForm,UpdateForm
-from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.urls import reverse_lazy
 # from django.contrib.auth import authenticate, login
@@ -15,6 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden,HttpResponse
 from django.core.paginator import Paginator
+from django.contrib.messages.views import SuccessMessageMixin
  
 
 def is_author(view_func):
@@ -101,15 +100,33 @@ class userLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('tasks')
 
-def changePass(request):
-    form = passwordChangeForm
-    if request.method == 'POST':
-        form= passwordChangeForm(request.POST)
-        if form.is_valid:
-            form.save()
-        return redirect('tasks')    
-    return render(request, 'update_password.html',{'form':form})
-        
+# def changePass(request):
+#     form = passwordChangeForm
+#     if request.method == 'POST':
+#         form= passwordChangeForm(request.POST)
+#         if form.is_valid:
+#             form.save()
+#         return redirect('tasks')    
+#     return render(request, 'update_password.html',{'form': form })
+
+class ChangePasswordView( PasswordChangeView):
+    template_name = 'update_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('tasks')
+    
+class resetPasswordView(SuccessMessageMixin,PasswordResetView):
+    template_name = 'reset_password.html'
+    email_template_name = 'users/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject'
+
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url= 'password_reset_confirm'
+    
+
+    
 def userRegister(request):
     form=RegisterForm()
     if request.method == 'POST':

@@ -13,8 +13,6 @@
     <br><br><br>
     <div class=" mt-5 container-fluid pt-3 shadow p-3 mb-5 bg-white rounded"style="width:40%">
             <div class=" m-3  form-wrapper">
-                
-
                 <h3>LOGIN TO YOUR PROFILE</h3>
                 <form class="mt-3" method="post">
                     {% csrf_token %}
@@ -24,6 +22,7 @@
                     </div>
                 </form>
             </div >
+            <a class="btn btn-success mt-2 mb-3 center" style="width:100%" href="{% url 'password_reset'%}">RESET PASSWORD</a>
                 <h5 class="text-center">Dont have an account yet</h5>
                 <h5 class="text-center">Register here</h5>
                 <a class="btn btn-success mt-2 mb-3 center" style="width:100%" href="{% url 'register-user'%}">Register</a>

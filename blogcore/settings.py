@@ -145,3 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = "/"
 
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '52f2eea5903f09'
+EMAIL_HOST_PASSWORD = 'e01453b7bef771'
+EMAIL_PORT = '2525'

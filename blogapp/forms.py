@@ -1,6 +1,6 @@
 from django import forms
 from .models import Topic
-from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
@@ -48,9 +48,3 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2"]
         
-class passwordChangeForm(PasswordChangeForm):
-    class Meta:
-        model=User
-        fields = '__all__'
-    
-  
