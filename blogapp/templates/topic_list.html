@@ -2,9 +2,9 @@
 {% load humanize %}
 
 {% block content %}
+<br><br><br>
 <div class=" container-fluid w-75">
-      <br><br>
-      <br>
+  <br><br><br>
 
       {% if request.user.is_authenticated %}
   <div class="row">
@@ -34,7 +34,7 @@
 
     <br>
 
-    <div class="shadow p-1 mb-3 bg-white rounded text-right">
+    <div class="shadow p-1 mb-3 bg-white rounded-4 text-right">
       <span class="step-links">
           {% if page_obj.has_previous %}
           <a class=" btn btn-info" href="?page=1">&laquo; first</a>
@@ -54,27 +54,36 @@
   <br>
 
     {% for blog in page_obj %}
-
-    <div class="row content shadow p-3 mb-3 bg-white rounded">
-      <div class="col-8 p-3 "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">
+<div class="card rounded-5">
+  <div class="row content shadow p-3 mb-3 bg-white rounded-4">
+    <div class="col-8 p-3  "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">
+      <div class="card-header">
         <h4 class="text-capitalize">{{blog.blog_title}}</h4>
+      </div>
+      <div class="card-body">
         <h6 id="summary">{{blog.blog_summary|slice:200}}</h6>
         <hr>
-        <sub><i>{{blog.created_date|naturaltime}}</i>
-          <i> by {{blog.user}}</i>
-        </sub>
       </div>
-      <div class="col-4 thumb_wrapper p-2 " >
-        <div class="box box1">
-          <img src="../media/images/{{blog.blog_header_image}}" class="thumb_image">
-        </div>
+      
+    </div>
+    <div class="col-4 thumb_wrapper p-2 " >
+      <div class="box box1">
+        <img src="../media/images/{{blog.blog_header_image}}" class="thumb_image">
       </div>
-  </div>
+    </div>
+    <div class="card-footer">
+      <sub><i>{{blog.created_date|naturaltime}}</i>
+        <i> by {{blog.user}}</i>
+      </sub>
+    </div>
+</div>
 
+</div>
+ 
 
     <br>
     {% endfor %}
-  <div class="container shadow p-3 mb-5 bg-white rounded text-center">
+  <div class="container shadow p-2 mb-5 bg-white rounded-4 text-center">
       <span class="step-links">
           {% if page_obj.has_previous %}
           <a class=" btn btn-info" href="?page=1">&laquo; first</a>

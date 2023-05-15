@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 
    <!DOCTYPE html>
    <html lang="en">
@@ -15,11 +16,11 @@
     <br><br><br>
 {% if request.user.is_authenticated  %}
     {% comment %} {%if blog.user.id == user.id %} {% endcomment %}
-    <div class="col-md-8  mx-auto shadow">
+    <div class="col-md-8 p-3 mx-auto shadow rounded-6">
         <div class="form-group p-3"> 
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{form|crispy}}
                 {{form.media}}
                 <button class="btn btn-primary" type="submit" value='Submit'>Submit</button>
             </form>

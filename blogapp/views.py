@@ -114,16 +114,16 @@ class ChangePasswordView( PasswordChangeView):
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('tasks')
     
-class resetPasswordView(SuccessMessageMixin,PasswordResetView):
-    template_name = 'reset_password.html'
-    email_template_name = 'users/password_reset_email.html'
-    subject_template_name = 'users/password_reset_subject'
+# class resetPasswordView(SuccessMessageMixin,PasswordResetView):
+#     template_name = 'password_reset_form.html'
+#     email_template_name = 'reset_email.html'
+#     subject_template_name = 'password_reset_subject.txt'
 
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url= 'password_reset_confirm'
+#     success_message = "We've emailed you instructions for setting your password, " \
+#                       "if an account exists with the email you entered. You should receive them shortly." \
+#                       " If you don't receive an email, " \
+#                       "please make sure you've entered the address you registered with, and check your spam folder."
+#     success_url= 'password_reset_confirm'
     
 
     

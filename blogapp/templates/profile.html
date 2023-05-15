@@ -2,20 +2,25 @@
 {% block content %}
 <div class="container ">
   <div class="main-body">
+    <br>
     <div class="container pt-3">
       <div class=" mb-3 mt-3">
-        <br>
+        <br><br><br>
           <a class='btn btn-info 'href="{% url 'create' %}">create task</a> <br>
           {% comment %} <h3>Welcome to your profile {{ request.user.username }}</h3> {% endcomment %}
       </div>
   
         <div class="row gutters-sm pt-3">
           <div class="">
-            <div class="card">
+            <div class="card shadow rounded-6">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                  <a class="btn btn-success mt-2 mb-3 center" style="width:100%" href="{% url 'one'%}">change password</a>
+                  <div class="d-flex justify-content-around mt-3 ">
+                    <a class="flex-item btn btn-success m-2 center" style="" href="{% url 'one'%}">change password</a>
+                    <a class="flex-item btn btn-success m-2 center" style="" href="{% url 'one'%}">change password</a>
+                  </div>
+                  
                   <div class="mt-3">
                     <h4>{{request.user}}</h4>
                     <p class="text-muted font-size-sm">You have posted {{num_post}} article{{ num_post|pluralize:"s" }} </p>
@@ -27,7 +32,7 @@
             <hr>
  
 
-          <div class="container p-3 shadow-sm bg-light">
+          <div class="container p-3 shadow rounded-6 ">
               <table id="myTable" class="display " style="width:100%">
                   <thead>
                       <tr>
@@ -43,9 +48,9 @@
                       {% for blog in topics %}
                       {%if user.id == blog.user_id %}
                               <tr>
-                                  <td class="id">{{ blog.id }}</td>  
-                                  <td><a class ="btn btn-info" href="{% url 'update' id=blog.id  %}"><i class="fas fa-edit"></i></a></td>
-                                  <td><a class="btn btn-info delete_btn" data-toggle="modal" data-target="#exampleModal{{blog.id}}"><i class="fas fa-trash"></i></a></td>
+                                  <td class="id">{{ blog.blog_title}}</td>  
+                                  <td><a class ="btn btn-info text-center" href="{% url 'update' id=blog.id  %}"><i class="fas fa-edit"></i></a></td>
+                                  <td><a class="btn btn-info delete_btn" data-toggle="modal" data-target="#exampleModal{{blog.id}}"><i class="fas fa-trash" style="color:white"></i></a></td>
                                   <td>{{ blog.created_date }}</td>
                                   <td>{{ request.user.username }}</td>
                               </tr>

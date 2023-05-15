@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,11 +10,11 @@
 </head>
 <body>
     <br><br><br>
-<div class="col-md-8 mx-auto shadow">
-    <div class="form-group pt-3">
+<div class="col-md-8 m-3 p-3 mx-auto shadow">
+    <div class="form-group p-3 ">
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form|safe }}
+            {{ form|crispy|safe }}
             {{ form.media }}
             <button type="submit" value='Submit' class="btn btn-success">Submit</button>
         </form>

@@ -32,36 +32,39 @@
 </style>
 
 
-<div class="container">
+<div class="container  ">
     <br><br><br>
-    <div class="content-title">
-        <h1 class="mt-"id="blog_title">{{blog.blog_title}}</h1>
-        <hr>
-        <div class="box-detail box1">
-            <img src="../media/images/{{blog.blog_header_image}}" class=".img-fluid.max-width: 100%; height:auto;">
+    <br>
+    <div class="card mt-3 shadow rounded-5">
+        <div class="card-header">
+            <h1 class="mt-"id="blog_title">{{blog.blog_title}}</h1>
         </div>
-        
-        <br>
-        <hr>
-        <h3 id="blog_summary">{{blog.blog_summary}}</h2>
-        <hr>
-        <p] id="blog_content">{{blog.blog_content|safe}}</p>
-<hr>    
+
+        <div class="card-body">
+            <div class="box-detail box1">
+                <img src="../media/images/{{blog.blog_header_image}}" class=".img-fluid.max-width: 100%; height:auto;">
+            </div>
+            
+            <br>
+            <hr>
+            <h3 id="blog_summary">{{blog.blog_summary}}</h2>
+            <hr>
+            <p] id="blog_content">{{blog.blog_content|safe}}</p>
+        </div>
 {% if request.user.is_authenticated  %}
     {%if blog.user.id == user.id %}
-    <div class="admin_tasks">
-        <button class="btn btn-danger" ><a href="{% url 'update' blog.id %}">Edit</a></button>
+    <div class="card-footer">
+        <a class="btn btn-danger" href="{% url 'update' blog.id %}">Edit</a>
     </div>
     {% endif %}
 {% endif %}
-
-        <div class="footer">
+    
+        <div class="card-footer">
             <sub><i>{{blog.created_date|naturaltime}}</i>
                 <i> By {{blog.user}}</i>
                 </sub>
         </div>
-    </div>
-</div>
+    </div> 
 
 
 {% endblock content %}
