@@ -1,45 +1,101 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends 'base.html' %} 
 {% load humanize %}
-<style>
-    
-    .content-wrapper{
-        margin: 0 auto;
-        padding: 10px;
-        width: 75%;
-    }
-    #summary{
-        color: gray;
 
-    }
-    #title_link{
-        text-decoration: none;
-        color:black;
-    }
+{% block content %}
+<div class=" container-fluid w-75">
+      <br><br>
+      <br>
 
-    #title_link:hover{
-        color:hsl(258, 83%, 36%);
-        font-weight: bolder;
-        font-size: 1.02em;
-    }
-
-</style>
-
-
-</div>
-<div class="content-wrapper">
-    {% for blog in topics %}
-    <hr>
-    <div class="content-title">
-        <h3><a id="title_link" href="{% url 'detail' blog.id %}">{{blog.blog_title}}</a></h3>
-        <h5 id="summary">{{blog.blog_summary}}</h5>
+      {% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col-4">
+      <a class=" btn btn-info" href="{% url 'create'%}" style="width:100%"> Create <i class="fas fa-plus"></i>  </a>
     </div>
-    <div class="posted">
+
+    <div class="col-8">
+
+      <form method="get"  action='/search' class="form-group">
+        <input class="form-control" type="search" id="query" placeholder="Start typing to search  " name='query'>
+
+      </form>
+    </div>
+  </div>
+    {% else %}
+    <div class="row">
+      <div class="col-12">
+        <form method="get"  action='/search' class="form-group">
+        {% csrf_token %}
+          <input class="form-control" type="search" id="query" placeholder="Start typing to search  " name='query'>
+        </form>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <br>
+
+    <div class="shadow p-1 mb-3 bg-white rounded text-right">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a class=" btn btn-info" href="?page=1">&laquo; first</a>
+          <a class=" btn btn-info" href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+  
+          <span class="current font-weight-bold pr-3">
+          PAGE {{ page_obj.number }} OF {{ page_obj.paginator.num_pages }}.
+          </span>
+  
+          {% if page_obj.has_next %}
+          <a class=" btn btn-info" href="?page={{ page_obj.next_page_number }}">next</a>
+          <a class=" btn btn-info" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+  <br>
+
+    {% for blog in page_obj %}
+
+    <div class="row content shadow p-3 mb-3 bg-white rounded">
+      <div class="col-8 p-3 "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">
+        <h4 class="text-capitalize">{{blog.blog_title}}</h4>
+        <h6 id="summary">{{blog.blog_summary|slice:200}}</h6>
+        <hr>
         <sub><i>{{blog.created_date|naturaltime}}</i>
-        <i> by {{blog.user}}</i>
+          <i> by {{blog.user}}</i>
         </sub>
-    </div>
-    <hr>
+      </div>
+      <div class="col-4 thumb_wrapper p-2 " >
+        <div class="box box1">
+          <img src="../media/images/{{blog.blog_header_image}}" class="thumb_image">
+        </div>
+      </div>
+  </div>
+
+
+    <br>
     {% endfor %}
+  <div class="container shadow p-3 mb-5 bg-white rounded text-center">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a class=" btn btn-info" href="?page=1">&laquo; first</a>
+          <a class=" btn btn-info" href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+  
+          <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+  
+          {% if page_obj.has_next %}
+          <a class=" btn btn-info" href="?page={{ page_obj.next_page_number }}">next</a>
+          <a class=" btn btn-info" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+  
 </div>
+
+
+
+  
+        
 {% endblock content %}

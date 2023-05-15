@@ -8,18 +8,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <title>Document</title>
+
+
    </head>
    <body>
-
-    <div class="col-md-8 mx-auto">
-        <div class="form-group pt-5"> 
-            <form action="" method="POST">
+    <br><br><br>
+{% if request.user.is_authenticated  %}
+    {% comment %} {%if blog.user.id == user.id %} {% endcomment %}
+    <div class="col-md-8  mx-auto shadow">
+        <div class="form-group p-3"> 
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form.as_p}}
+                {{form.media}}
                 <button class="btn btn-primary" type="submit" value='Submit'>Submit</button>
             </form>
         </div> 
     </div>
+    {% endif %}
+
+
     
    </body>
    </html>l

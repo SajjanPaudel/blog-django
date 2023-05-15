@@ -8,11 +8,13 @@
     <title>Document</title>
 </head>
 <body>
-<div class="col-md-8 mx-auto">
-    <div class="form-group pt-5">
-        <form action="" method="POST">
+    <br><br><br>
+<div class="col-md-8 mx-auto shadow">
+    <div class="form-group pt-3">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            {{ form|safe }}
+            {{ form.media }}
             <button type="submit" value='Submit' class="btn btn-success">Submit</button>
         </form>
     </div>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container">
+    <br><br><br>
+<h3 class="p-3">Blog posts containing '{{query}}' are shown below</h3>
+{% for blog in page_obj %}
+<div class="row content shadow p-3 mb-3 bg-white rounded">
+    <div class="col-8 p-3 "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">
+      <h4 class="text-capitalize">{{blog.blog_title}}</h4>
+      {% comment %} <h5 id="summary">{{blog.blog_summary|slice:200}}</h5> {% endcomment %}
+      {% comment %} <hr> {% endcomment %}
+      <sub><i>{{blog.created_date|naturaltime}}</i>
+        <i> by {{blog.user}}</i>
+        {{blog.blog_header_image}}
+      </sub>
+    </div>
+    {% comment %} <div class="col-4 thumb_wrapper p-2 " >
+      <div class="box box1">
+        <img src="../media/{{blog.blog_header_image}}" class="thumb_image">
+      </div>
+    </div> {% endcomment %}
+</div>
+{% endfor %}
+<div class="container shadow p-3 mb-5 bg-white rounded text-center">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a class=" btn btn-info" href="?page=1">&laquo; first</a>
+        <a class=" btn btn-info" href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a class=" btn btn-info" href="?page={{ page_obj.next_page_number }}">next</a>
+        <a class=" btn btn-info" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+
+
+{% endblock content %}
