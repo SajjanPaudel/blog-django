@@ -2,24 +2,33 @@
 {% load humanize %}
 
 {% block content %}
-<br><br><br>
-<div class=" container-fluid w-75">
-  <br><br><br>
+<br>
+<style>
 
-      {% if request.user.is_authenticated %}
+</style>
+
+<div class=" container-fluid w-75">
+  {% if request.user.is_authenticated %}
+      
   <div class="row">
-    <div class="col-4">
-      <a class=" btn btn-info" href="{% url 'create'%}" style="width:100%"> Create <i class="fas fa-plus"></i>  </a>
+    <div class=" col-4 create-btn">
+      <a class=" btn btn-info " href="{% url 'create'%}" style="width:100%"> Create <i class="fas fa-plus"></i>  </a>
     </div>
 
-    <div class="col-8">
+    <div class="col-8 search-btn">
 
       <form method="get"  action='/search' class="form-group">
-        <input class="form-control" type="search" id="query" placeholder="Start typing to search  " name='query'>
+        <input class="form-control " type="search" id="query" placeholder="Start typing to search your blog " name='query'>
 
       </form>
     </div>
   </div>
+
+    <form method="get"  action='/search' class="form-group search-btn-small">
+      <input class="form-control " type="search" id="query" placeholder="Start typing to search your blog " name='query'>
+
+    </form>
+
     {% else %}
     <div class="row">
       <div class="col-12">
@@ -55,8 +64,8 @@
 
     {% for blog in page_obj %}
 <div class="card rounded-5">
-  <div class="row content shadow p-3 mb-3 bg-white rounded-4">
-    <div class="col-8 p-3  "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">
+  <div class="content shadow p-3 mb-3 bg-white rounded-4 topic_card" >
+    <div class=" p-3 topic_card_data" onclick="location.href='{% url 'detail' blog.blog_slug %}';" style="cursor: pointer;">
       <div class="card-header">
         <h4 class="text-capitalize">{{blog.blog_title}}</h4>
       </div>
@@ -106,5 +115,5 @@
 
 
   
-        
+{% include 'footer.html' %} 
 {% endblock content %}

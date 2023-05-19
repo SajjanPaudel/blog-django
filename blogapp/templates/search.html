@@ -4,6 +4,31 @@
 <div class="container">
     <br><br><br>
 <h3 class="p-3">Blog posts containing '{{query}}' are shown below</h3>
+<form method="get"  action='/search' class="form-group search_input">
+  <input class="form-control " type="search" id="query" placeholder="Start typing to search your blog " name='query'>
+
+</form>
+
+
+{% comment %} testing dependent lists with ajax {% endcomment %}
+<div class="inputtest">
+  <label for="nepalinternational">country </label>
+    <select class="form-control"  id= "nepal"value="Np">
+      <option value="Np">Nepal</option>
+      <option value="IN">International</option>
+      <option selected>Choose a country</option>
+    </select>
+
+    <br><br>
+
+    <label for="categorylist">category </label>
+    <select class="form-control"  id= "list" value="">
+      <option selected>Choose a category</option>
+    </select>
+</div>
+{% comment %} --------------------------------------------------------------- {% endcomment %}
+
+
 {% for blog in page_obj %}
 <div class="row content shadow p-3 mb-3 bg-white rounded">
     <div class="col-8 p-3 "onclick="location.href='{% url 'detail' blog.id %}';" style="cursor: pointer;">

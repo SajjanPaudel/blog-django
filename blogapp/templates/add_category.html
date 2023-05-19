@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% block content %}
+<body>
+    <br><br><br>
+
+    <div class="container-fluid w-50 pt-3 mt-3 shadow rounded-7">
+        <div class="card text-center">
+            <div class="card-header">
+             <h3>Add Categories</h3> 
+            </div>
+            <div class="card-body">
+
+              <form class="mt-3" method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+
+    
+            </div>
+            <div class="card-footer text-muted">
+                <div class="login  text-center mt-3">
+                    <button class="btn btn-info"type="submit" >ADD</button>
+                </div>
+            </div>
+        </form>
+          </div>
+    </div>
+    <div class="container-fluid p-3 mt-3 mb-3 w-50 bg-navbar-light shadow">
+        <h3 >Categories are listed Below</h3>
+    </div>
+
+    {% comment %} ------------------------------CATEGORY DATA TABLES------------------------------- {% endcomment %}
+    <div class="container-fluid w-50 p-3 shadow rounded-6 ">
+        <table id="catTable" class="display " style="width:100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for title in categories %}
+            
+                <tr>
+                    <td class="id"> {{title.name}}</td>  
+                    <td><a class ="btn btn-info text-center" href=""><i class="fas fa-edit"></i></a></td>
+                    <td><a class="btn btn-info delete_btn" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash" style="color:white"></i></a></td>
+                </tr>
+            
+            {% endfor %} 
+        </tbody>
+        </table>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">DELETE CONFIRMATION DIALOG</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <b>Are you sure you want to delete the following Category?</b>  <br>
+                <span>{{category.name}}</span>
+                </div>
+        
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class=" btn btn-danger"href="">DELETE</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+{% endblock content %}
+
+
+

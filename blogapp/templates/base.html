@@ -130,6 +130,29 @@
         .row.content:not(:hover) {
           transition:200ms;
         }
+        .flex-item:hover{
+          transform: scale(1.1) !important;
+          transition:200ms !important;
+        }
+        .flex-item:not(:hover){
+          transform: scale(1.02);
+          transition:200ms;
+        }
+        .action:hover{
+          transform: scale(1.1) !important;
+          transition:200ms !important;
+        }
+        .delete_action{
+          color:white;
+        }
+        .delete_action:hover{
+          color:red;
+          transition:200ms;
+        }
+        .action:not(:hover){
+          transform: scale(1.02);
+          transition:200ms;
+        }
 
       div .box.box1 img{
         border-radius: 10px;
@@ -141,21 +164,48 @@
         width: 100%;
         text-decoration: none;
       }
+      @media screen and (max-width: 600px) {
+        .navbar {
+        display: none;
+        }
+        .create-btn{
+          display:none;
+        }
+        .search-btn{
+          display:none;
+        }
+        .thumb_wrapper{
+          display:none;
+        }
 
+      }
+      @media screen and (min-width: 600px) {
+        .search-btn-small{
+          display:none;
+        }
+        .nav-small{
+          dislpay:none;
+        }
 
-
-
-
-        
-        
-        
+        .create-icon{
+          display:none;
+        }
+      }
+      #btn-back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        }
         </style>
   </head>
 
 
   <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-light fixed-top" id="mainNav">
+<div class="nav-small bg-light fixed-top mb-3 container p-1 text-center">
+  <a class="navbar-brand" href='{% url 'tasks'%}'>NITV</a>
+</div>
+<nav class="navbar navbar-expand-lg bg-light fixed-top mb-3" id="mainNav">
     <div class="container p-1">
       <a class="navbar-brand" href='{% url 'tasks'%}'>NITV</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,7 +215,7 @@
       {% if request.user.is_authenticated %}
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'tasks' %}">Home</a>
           </li>
           <li class="nav-item">
@@ -179,7 +229,7 @@
       </div>
       {% else %}
       <div class= "collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" id="nav-links">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'tasks' %}">Home</a>
           </li>
@@ -194,6 +244,23 @@
       {% endif %}
     </div>
   </nav>
+  <br><br><br>
+  {% for message in messages %}
+  <div class="alert alert-success text-center" id="messages">
+    {{message}}
+  </div>
+  {% endfor %}
+  {% comment %} <div class="container w-75 text-center">
+    <div class="" role="group" aria-label="Basic outlined example">
+      <a href="" class="btn btn-outline-primary">Technology</a>
+      <a href="" class="btn btn-outline-primary">Politics</a>
+      <a href="" class="btn btn-outline-primary">Lifestyle</a>
+      <a href="" class="btn btn-outline-primary">Entertainment</a>
+      <a href="{% url 'categorized-list' %}" class="btn btn-outline-primary">International</a>
+    </div>
+  
+  </div> {% endcomment %}
+
 
 
 
@@ -220,6 +287,36 @@
             {width:'10%', 'targets':[4]},
         ]
     } );
+    var table2 = $('#catTable').DataTable( {
+      columnDefs: [
+          {width:'', 'targets':[0]},
+          {width:'10%', 'targets':[1]},
+          {width:'10%', 'targets':[2]},
+      ]
+  } );
+      {% comment %} setTimeout(function () {
+        document.getElementById('messages').style.cssText = `
+        opacity:0;
+        display: none;
+      `;
+    }, 3000) {% endcomment %}
+    $("#messages").fadeOut(3000,'linear');
+
+    if (window.innerWidth > 600) {
+      var topicCard = document.querySelectorAll(".topic_card");
+      topicCard.forEach((element) => {
+        element.classList.add('row');
+      });
+      var topicCardData = document.querySelectorAll(".topic_card_data");
+      topicCardData.forEach((element) => {
+        element.classList.add('col-8');
+      });
+      topicCardData.classList.add("col-8");
+  };
+
+
+    
+    
     </script>
 
     {% comment %} bootstrap css {% endcomment %}
